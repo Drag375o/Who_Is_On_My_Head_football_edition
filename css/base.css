@@ -458,3 +458,11 @@ button:disabled { cursor: not-allowed; }
 .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 35; overflow: hidden; }
 .confetti i { position: absolute; top: -20px; width: 10px; height: 16px; animation: fall linear forwards; }
 @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+
+/* narrow phones: two cards per row, so facts stack label-over-value */
+@media (max-width: 520px) {
+  .seats-grid .deed-facts div { display: block; }
+  .seats-grid .deed-facts dd { text-align: left; }
+  .seats-grid .deed-name { font-size: 1.05rem; }
+  .deed-band b { font-size: 1rem; }
+}
