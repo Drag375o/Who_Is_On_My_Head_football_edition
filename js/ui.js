@@ -545,17 +545,25 @@
     </div>`;
   }
 
-  function questionDeck(g, i) {
+  // the list part of the question deck (search re-draws just this, so typing isn't interrupted)
+  function questionItems(g, i) {
     const asked = new Set(g.players[i].clues.map(c => c.qid).filter(Boolean));
     const all = catalogue(g);
     const s = Cards.normalise(view.search);
     const list = s ? all.filter(q => Cards.normalise(q.text).includes(s)) : all.filter(q => q.cat === view.qcat);
-    const cats = Q.CATEGORIES.map(c => `<button class="chip small${!s && view.qcat === c.id ? ' selected' : ''}" data-action="qcat" data-cat="${c.id}">${c.name}</button>`).join('');
-    const items = list.map(q => `<button class="q-item" data-action="ask-q" data-qid="${q.id}"${asked.has(q.id) ? ' disabled title="Already asked"' : ''}>${esc(q.text)}</button>`).join('')
+    return list.map(q => `<button class="q-item" data-action="ask-q" data-qid="${q.id}"${asked.has(q.id) ? ' disabled title="Already asked"' : ''}>${esc(q.text)}</button>`).join('')
       || '<p class="hint">No questions match.</p>';
+  }
+
+  function questionCats() {
+    const s = Cards.normalise(view.search);
+    return Q.CATEGORIES.map(c => `<button class="chip small${!s && view.qcat === c.id ? ' selected' : ''}" data-action="qcat" data-cat="${c.id}">${c.name}</button>`).join('');
+  }
+
+  function questionDeck(g, i) {
     return `<input class="text-input q-search" data-model="search" data-keep="search" placeholder="Search questions: Brazil, Real Madrid, World Cup…" value="${esc(view.search)}" autocomplete="off">
-      <div class="q-cats">${cats}</div>
-      <div class="q-list">${items}</div>`;
+      <div class="q-cats">${questionCats()}</div>
+      <div class="q-list">${questionItems(g, i)}</div>`;
   }
 
   function turnPanel(g, i) {
@@ -1283,7 +1291,11 @@
       saveSettings();
     } else if (d.model) {
       view[d.model] = t.value;
-      if (d.model === 'search') render();
+      const list = app.querySelector('.q-list'), cats = app.querySelector('.q-cats'), g = view.game;
+      if (d.model === 'search' && list && g) {
+        list.innerHTML = questionItems(g, g.turn);
+        cats.innerHTML = questionCats();
+      }
     }
   });
 
