@@ -58,10 +58,7 @@ function play(seed, cfg, count) {
       questions++;
       assert(E.ask(g, i, { qid: d.qid }, now), `ask ${d.qid}`);
     } else {
-      const before = g.players[i].clues.length;
-      const res = E.guess(g, i, d.text, now);
-      assert(res, 'guess rejected');
-      if (res === 'wrong') g.players[i].clues[before].id = d.id; // what the UI records for computer guesses
+      assert(E.guess(g, i, d.text, now, d.id), 'guess rejected');
     }
   }
   games++;

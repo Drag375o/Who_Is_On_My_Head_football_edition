@@ -46,7 +46,7 @@ window.WOH = window.WOH || {};
       turn: 0,
       ask: null,
       clock: null,
-      event: null,
+      events: [],   // recent events (newest last) so every device can play the right sound and stamp
       log: [],
       n: 0,
       winners: [],
@@ -66,7 +66,8 @@ window.WOH = window.WOH || {};
   }
 
   function emit(g, type, who, extra) {
-    g.event = Object.assign({ n: ++g.n, type, who }, extra);
+    g.events.push(Object.assign({ n: ++g.n, type, who }, extra));
+    if (g.events.length > 12) g.events.splice(0, g.events.length - 12);
   }
 
   function shuffle(list, rng) {
@@ -315,8 +316,9 @@ window.WOH = window.WOH || {};
   /**
    * The player on turn names their footballer.
    * Returns 'correct' | 'wrong' | 'ambiguous' (try the full name, turn goes on) | false (not allowed).
+   * `id` (optional) is the card the guesser meant; the computer uses it to remember wrong guesses.
    */
-  function guess(g, i, text, now) {
+  function guess(g, i, text, now, id) {
     if (!myTurn(g, i)) return false;
     const res = Q.checkGuess(text, card(g, i));
     if (res === 'empty') return false;
@@ -325,7 +327,7 @@ window.WOH = window.WOH || {};
       emit(g, 'ambiguous', i, { text: name });
       return res;
     }
-    settleGuess(g, i, res === 'correct', name, now);
+    settleGuess(g, i, res === 'correct', name, now, id);
     return res;
   }
 
@@ -336,9 +338,9 @@ window.WOH = window.WOH || {};
     return true;
   }
 
-  function settleGuess(g, i, correct, name, now) {
+  function settleGuess(g, i, correct, name, now, id) {
     const p = g.players[i];
-    p.clues.push({ kind: 'guess', text: name, a: correct ? 'correct' : 'wrong', n: p.clues.length + 1 });
+    p.clues.push({ kind: 'guess', text: name, id: id || null, a: correct ? 'correct' : 'wrong', n: p.clues.length + 1 });
     if (correct) {
       p.solved = true;
       p.score++;
