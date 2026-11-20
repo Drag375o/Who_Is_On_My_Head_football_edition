@@ -137,6 +137,9 @@ window.WOH = window.WOH || {};
     let g = C.normalise(text);
     while (FILLER.test(g)) g = g.replace(FILLER, '');
     if (!g) return 'empty';
+    // an exact full name always counts, even if it's also someone's surname ("Pelé", "Pedro")
+    const exact = C.all.find(c => C.normalise(c.name) === g);
+    if (exact) return exact.id === card.id ? 'correct' : 'wrong';
     const idx = nameIndex();
     let ids = idx.get(g);
     if (!ids) {

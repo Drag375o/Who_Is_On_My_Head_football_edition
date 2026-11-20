@@ -51,7 +51,12 @@ const cases = [
   ['Zlatan', 'zlatan-ibrahimovic', 'correct'],
   ['Ibrahimovich', 'zlatan-ibrahimovic', 'correct'],
   ['Mbape', 'kylian-mbappe', 'correct'],
+  ['Pelé', 'pele', 'correct'],
+  ['Pedro', 'joao-pedro', 'wrong'],
+  ['João Pedro', 'joao-pedro', 'correct'],
 ];
+// every footballer's own full name is a correct guess
+for (const c of Cards.all) assert.strictEqual(Q.checkGuess(c.name, c), 'correct', c.name);
 for (const [guess, id, want] of cases) {
   assert.strictEqual(Q.checkGuess(guess, card(id)), want, `"${guess}" for ${id}`);
 }
