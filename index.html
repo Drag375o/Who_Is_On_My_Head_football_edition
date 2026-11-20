@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" data-theme="board">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Who's on My Head? · Football Edition</title>
+  <meta name="description" content="A party guessing game: everyone can see the footballer on your head except you. Ask YES / NO questions and name them first.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='4' width='56' height='56' rx='6' fill='%23d7262c' stroke='%23111' stroke-width='4'/%3E%3Ctext x='32' y='46' font-size='40' font-family='Arial Black,Arial' font-weight='900' text-anchor='middle' fill='%23fff'%3E%3F%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow:wght@400;600;700&family=Bebas+Neue&family=Cabin+Sketch:wght@400;700&family=Caveat:wght@600;700&family=Inter:wght@400;600&family=Josefin+Sans:wght@600;700&family=Kalam:wght@400;700&family=Patrick+Hand&family=Permanent+Marker&family=Rajdhani:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/themes/board.css">
+</head>
+<body>
+  <main id="app"></main>
+  <noscript>Who's on My Head? needs JavaScript to run.</noscript>
+
+  <!-- PeerJS powers online rooms; the game still works offline without it -->
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+  <script src="js/data/clubs.js"></script>
+  <script src="js/data/footballers-core.js"></script>
+  <script src="js/data/footballers-clubs.js"></script>
+  <script src="js/cards.js"></script>
+  <script src="js/questions.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/net.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>
