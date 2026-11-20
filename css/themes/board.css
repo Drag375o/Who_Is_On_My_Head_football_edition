@@ -1,0 +1,129 @@
+/*
+ * Classic Board (the default theme), inspired by classic property-trading board games:
+ * a mint-green board with a strip of property colours around the edge, every player's
+ * seat as a title-deed card in their property colour, questions on orange "chance"
+ * cards, a red banner logo, chunky black outlines and points paid out as banknotes.
+ */
+[data-theme="board"] {
+  --bg: #cde6d0;
+  --surface: #fffdf4;
+  --surface-2: #eef3e6;
+  --ink: #141414;
+  --ink-soft: #4b5a4e;
+  --line: rgba(20, 20, 20, .22);
+  --accent: #d7262c;
+  --accent-ink: #fff;
+  --highlight: #fff1a1;
+  --gold: #b07d00;
+  --yes: #1d9a48;
+  --no: #d7262c;
+  --chance: #f7941d;
+  --chance-ink: #141414;
+  --money: #f6efc4;
+  --stamp-bg: #fffdf4;
+  --input-bg: #fff;
+
+  --seat-0: #d7262c;
+  --seat-1: #0a5fb0;
+  --seat-2: #1d9a48;
+  --seat-3: #f08a1c;
+  --seat-4: #d63484;
+  --seat-5: #3aa6de;
+  --seat-6: #f2d200;
+  --seat-6-ink: #141414;
+  --seat-7: #8b4a26;
+
+  --font-logo: 'Archivo Black', 'Arial Black', sans-serif;
+  --font-display: 'Josefin Sans', 'Century Gothic', 'Segoe UI', sans-serif;
+  --font-body: 'Barlow', 'Segoe UI', sans-serif;
+  --display-weight: 700;
+  --btn-case: uppercase;
+  --deed-case: uppercase;
+
+  --radius: 4px;
+  --radius-sm: 4px;
+  --radius-card: 5px;
+  --board-border: 2.5px;
+  --card-border: 2px;
+  --shadow: 6px 6px 0 rgba(20, 20, 20, .16);
+  --card-shadow: 3px 3px 0 rgba(20, 20, 20, .3);
+}
+
+/* the board edge: a strip of property colours along the top and bottom of the screen */
+[data-theme="board"] body {
+  padding: 14px 0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, .55), rgba(255, 255, 255, 0) 60%),
+    repeating-linear-gradient(45deg, rgba(20, 20, 20, .018) 0 2px, transparent 2px 14px),
+    #cde6d0;
+  background-attachment: fixed;
+}
+[data-theme="board"] body::before,
+[data-theme="board"] body::after {
+  content: ''; position: fixed; left: 0; right: 0; height: 14px; z-index: 50;
+  border-block: 2px solid #141414;
+  background: linear-gradient(90deg,
+    #8b4a26 0 12.5%, #3aa6de 12.5% 25%, #d63484 25% 37.5%, #f08a1c 37.5% 50%,
+    #d7262c 50% 62.5%, #f2d200 62.5% 75%, #1d9a48 75% 87.5%, #0a5fb0 87.5% 100%);
+  background-size: 520px 100%;
+}
+[data-theme="board"] body::before { top: 0; border-top: 0; }
+[data-theme="board"] body::after { bottom: 0; border-bottom: 0; }
+
+/* the red banner logo with a white inner rule */
+[data-theme="board"] .logo { display: grid; justify-items: center; }
+[data-theme="board"] .logo-main {
+  display: inline-block; padding: .16em .5em .12em;
+  background: #d7262c; color: #fff;
+  border: 4px solid #141414; border-radius: 4px;
+  box-shadow: inset 0 0 0 4px #d7262c, inset 0 0 0 7px #fff, 6px 6px 0 #141414;
+  text-transform: uppercase; letter-spacing: .01em;
+  transform: rotate(-2deg);
+}
+[data-theme="board"] .logo small {
+  margin-top: -2px; padding: .35em 1em .25em;
+  background: #fffdf4; color: #141414; border: 2.5px solid #141414; border-top: 0; border-radius: 0 0 4px 4px;
+  font-size: .26em; transform: rotate(-2deg);
+}
+
+[data-theme="board"] .step .num { background: #141414; color: #fffdf4; border-color: #141414; }
+[data-theme="board"] .step,
+[data-theme="board"] .board-title,
+[data-theme="board"] .panel-title,
+[data-theme="board"] .result-title,
+[data-theme="board"] .table-bar .title { text-transform: uppercase; letter-spacing: .02em; }
+[data-theme="board"] .result-title { font-family: 'Archivo Black', sans-serif; }
+
+/* boards are the cream card stock of the game box */
+[data-theme="board"] .board { box-shadow: var(--shadow); }
+
+/* title deeds */
+[data-theme="board"] .deed-band small::before { content: 'Title deed · '; }
+[data-theme="board"] .deed-band b { text-transform: uppercase; letter-spacing: .03em; }
+[data-theme="board"] .deed-body { background: #fffdf4; }
+[data-theme="board"] .deed-name { font-size: 1.15rem; letter-spacing: .02em; }
+[data-theme="board"] .deed-facts dt { text-transform: uppercase; font-size: .72rem; letter-spacing: .06em; align-self: center; }
+
+/* the back of your own card: a chance card */
+[data-theme="board"] .deed-back {
+  border: 2px solid #141414;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255, 255, 255, .35) 0 30%, transparent 31%),
+    #f7941d;
+  box-shadow: inset 0 0 0 4px #f7941d, inset 0 0 0 6px rgba(255, 255, 255, .8);
+}
+[data-theme="board"] .deed-back b { color: #141414; text-shadow: 3px 3px 0 #fff; }
+
+/* chance card for questions */
+[data-theme="board"] .chance { box-shadow: inset 0 0 0 5px #f7941d, inset 0 0 0 7px rgba(255, 255, 255, .85), var(--card-shadow); }
+[data-theme="board"] .chance-kicker { font-family: 'Archivo Black', sans-serif; letter-spacing: .24em; }
+[data-theme="board"] .chance-q { text-transform: none; }
+
+[data-theme="board"] .stamp { border-width: 7px; box-shadow: 6px 6px 0 rgba(20, 20, 20, .25); }
+[data-theme="board"] .money { box-shadow: inset 0 0 0 2px var(--money), inset 0 0 0 3px rgba(20, 20, 20, .35); }
+[data-theme="board"] .clock { box-shadow: 3px 3px 0 #141414; }
+[data-theme="board"] .tab.selected,
+[data-theme="board"] .chip.selected { box-shadow: 2px 2px 0 #141414; }
+[data-theme="board"] .die { --die: #fffdf4; }
+[data-theme="board"] .handover .who { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; }
+[data-theme="board"] .forehead .big-name { font-family: 'Archivo Black', sans-serif; }
