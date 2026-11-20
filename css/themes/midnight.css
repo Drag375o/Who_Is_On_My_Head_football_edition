@@ -1,0 +1,82 @@
+/*
+ * Midnight theme (from Auction XI): charcoal tactics room with gold accents.
+ * Seats are glowing tablet cards; the question card is a gold-edged panel.
+ */
+[data-theme="midnight"] {
+  color-scheme: dark;
+  --option-bg: #15181d;
+  --bg: #0b0d10;
+  --surface: #15181d;
+  --surface-2: #1f242b;
+  --ink: #f1f3f6;
+  --ink-soft: #8b94a3;
+  --line: rgba(255, 255, 255, .12);
+  --accent: #dcb75e;
+  --accent-ink: #17130a;
+  --highlight: rgba(220, 183, 94, .14);
+  --gold: #e6c46f;
+  --yes: #22a861;
+  --no: #e5485f;
+  --chance: linear-gradient(160deg, #2a2418, #1a1710);
+  --chance-ink: #f6e7bf;
+  --money: #2a2418;
+  --stamp-bg: rgba(10, 12, 15, .92);
+  --input-bg: #0f1216;
+  --die: #1f242b; --pip: #f1f3f6; --die-edge: #dcb75e;
+
+  --seat-0: #ff5d7a; --seat-1: #4ea8ff; --seat-2: #3ccf7f; --seat-3: #ffad42;
+  --seat-4: #d77cf0; --seat-5: #4fd3e6; --seat-6: #f2d94e; --seat-6-ink: #17130a; --seat-7: #c98a5b;
+
+  --font-logo: 'Rajdhani', 'Segoe UI', sans-serif;
+  --font-display: 'Rajdhani', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+  --btn-case: uppercase;
+  --deed-case: uppercase;
+
+  --radius: 18px;
+  --radius-sm: 12px;
+  --radius-btn: 999px;
+  --radius-card: 16px;
+  --card-border: 1px;
+  --shadow: 0 26px 50px -22px rgba(0, 0, 0, .85), 0 0 0 1px rgba(255, 255, 255, .06);
+  --card-shadow: 0 18px 30px -18px rgba(0, 0, 0, .9);
+}
+
+[data-theme="midnight"] body {
+  font-size: 16px;
+  background:
+    radial-gradient(ellipse at 50% -25%, #233040 0%, rgba(35, 48, 64, 0) 60%),
+    radial-gradient(ellipse at 100% 100%, rgba(220, 183, 94, .07), rgba(220, 183, 94, 0) 50%),
+    #0b0d10;
+  background-attachment: fixed;
+}
+[data-theme="midnight"] .board { background: linear-gradient(180deg, #191d23, #121519); box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .06); }
+[data-theme="midnight"] .logo { letter-spacing: .06em; text-transform: uppercase; }
+[data-theme="midnight"] .logo small { color: var(--accent); }
+[data-theme="midnight"] .step,
+[data-theme="midnight"] .board-title,
+[data-theme="midnight"] .panel-title,
+[data-theme="midnight"] .result-title { text-transform: uppercase; letter-spacing: .05em; }
+[data-theme="midnight"] .btn,
+[data-theme="midnight"] .chip,
+[data-theme="midnight"] .option-card,
+[data-theme="midnight"] .theme-card,
+[data-theme="midnight"] .step .num { border-width: 1px; }
+[data-theme="midnight"] .btn { background: var(--surface-2); border-color: rgba(255, 255, 255, .16); }
+[data-theme="midnight"] .btn.primary { border-color: transparent; background: linear-gradient(135deg, #f3dc98, #d3a948 55%, #b98c30); }
+[data-theme="midnight"] .btn.yes { background: linear-gradient(135deg, #3fd187, #1c8d50); border-color: transparent; }
+[data-theme="midnight"] .btn.no { background: linear-gradient(135deg, #ff7a8d, #c7334a); border-color: transparent; }
+[data-theme="midnight"] .btn:hover:not(:disabled) { box-shadow: 0 8px 22px -8px rgba(220, 183, 94, .55); }
+[data-theme="midnight"] .option-card.selected,
+[data-theme="midnight"] .theme-card.selected,
+[data-theme="midnight"] .chip.selected,
+[data-theme="midnight"] .tab.selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 0 20px -8px var(--accent); }
+[data-theme="midnight"] .deed { border-color: rgba(255, 255, 255, .1); }
+[data-theme="midnight"] .deed.is-turn { box-shadow: 0 0 0 2px var(--seat), 0 0 28px -4px var(--seat); }
+[data-theme="midnight"] .deed-band { background: linear-gradient(135deg, color-mix(in srgb, var(--seat) 85%, #fff), var(--seat)); border-bottom-color: transparent; }
+[data-theme="midnight"] .deed-back { background: radial-gradient(circle at 50% 40%, #2a2418, #14120c); color: var(--accent); border: 1px solid rgba(220, 183, 94, .4); }
+[data-theme="midnight"] .chance { border: 1px solid var(--accent); box-shadow: 0 0 34px -10px rgba(220, 183, 94, .5); }
+[data-theme="midnight"] .chance .records,
+[data-theme="midnight"] .vote-tally span { background: rgba(255, 255, 255, .1); color: var(--ink); }
+[data-theme="midnight"] .stamp { border-width: 3px; border-radius: 999px; letter-spacing: .08em; }
+[data-theme="midnight"] .clock { border-width: 1px; }
