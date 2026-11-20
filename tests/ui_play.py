@@ -210,14 +210,20 @@ def online_step(pages):
                 p.click('[data-action="tab"][data-tab="own"]')
                 p.fill('[data-model="qText"]', 'Am I left-footed?')
                 p.click('[data-action="ask-text"]')
-            elif r < 0.4:
+            elif r < 0.45:
+                # peek at our own card on another device so rounds actually end
+                seat = pages.index(p)
+                other = pages[(seat + 1) % len(pages)]
+                name = other.locator('.seats-grid .deed').nth(seat).locator('.deed-name')
                 p.click('[data-action="tab"][data-tab="guess"]')
-                p.fill('[data-model="guessText"]', 'Lionel Messi')
+                p.fill('[data-model="guessText"]', name.inner_text() if name.count() and r < 0.4 else 'Lionel Messi')
                 p.click('[data-action="guess"]')
             else:
                 p.click('[data-action="tab"][data-tab="deck"]')
+                p.click(f'[data-action="qcat"][data-cat="{random.choice(["pos", "age", "nation", "league", "club", "hon"])}"]')
                 items = p.locator('.q-item:not([disabled])')
-                items.nth(random.randrange(min(items.count(), 5))).click()
+                if items.count():
+                    items.nth(random.randrange(min(items.count(), 5))).click()
             return True
     return False
 
