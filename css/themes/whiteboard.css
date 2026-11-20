@@ -1,0 +1,67 @@
+/*
+ * Whiteboard theme (from Auction XI): a coach's tactics board in an aluminium
+ * frame, marker handwriting, seats pinned up with coloured magnets.
+ */
+[data-theme="whiteboard"] {
+  --bg: #e2e5e9;
+  --surface: #fdfdfc;
+  --surface-2: #f0f2f4;
+  --ink: #1d2128;
+  --ink-soft: #69717e;
+  --line: #cdd2d9;
+  --accent: #f26a1b;
+  --accent-ink: #fff;
+  --highlight: #fff4b8;
+  --gold: #c27c0e;
+  --yes: #1e9a4c;
+  --no: #d92b2b;
+  --chance: #fff176;
+  --chance-ink: #1d2128;
+  --money: #fff4b8;
+  --stamp-bg: rgba(255, 255, 255, .94);
+
+  --seat-0: #d92b2b; --seat-1: #1f4fd6; --seat-2: #1e9a4c; --seat-3: #f26a1b;
+  --seat-4: #c2338f; --seat-5: #1aa3c9; --seat-6: #e8c21c; --seat-6-ink: #1d2128; --seat-7: #6b4a2b;
+
+  --font-logo: 'Permanent Marker', 'Segoe Print', cursive;
+  --font-display: 'Permanent Marker', 'Segoe Print', 'Comic Sans MS', cursive;
+  --display-weight: 400;
+  --font-body: 'Patrick Hand', 'Segoe Print', 'Comic Sans MS', cursive;
+
+  --radius: 16px;
+  --radius-sm: 10px 6px 12px 5px / 6px 12px 5px 10px;
+  --radius-card: 6px;
+  --shadow: 0 14px 30px -12px rgba(25, 35, 55, .38), 0 2px 4px rgba(25, 35, 55, .1);
+  --card-shadow: 0 6px 10px -4px rgba(25, 35, 55, .35);
+}
+
+[data-theme="whiteboard"] body {
+  font-size: 18px;
+  background:
+    radial-gradient(ellipse at 50% -20%, #f8f9fa 0%, rgba(248, 249, 250, 0) 65%),
+    linear-gradient(180deg, #e6e9ed, #d6dae0);
+  background-attachment: fixed;
+}
+/* aluminium frame around every board */
+[data-theme="whiteboard"] .board {
+  border: 7px solid transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(150deg, #f5f6f8 0%, #b6bdc6 22%, #eef0f2 48%, #a1a9b3 76%, #e7e9ec 100%) border-box;
+}
+[data-theme="whiteboard"] .logo { transform: rotate(-2deg); }
+[data-theme="whiteboard"] .logo-main { color: var(--ink); }
+[data-theme="whiteboard"] .logo small { color: var(--accent); font-family: var(--font-body); font-size: .36em; }
+/* seats are cards pinned with a glossy magnet */
+[data-theme="whiteboard"] .deed { border-color: #cfd4da; overflow: visible; }
+[data-theme="whiteboard"] .deed::before {
+  content: ''; position: absolute; top: -9px; left: 50%; z-index: 2; width: 20px; height: 20px; margin-left: -10px; border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--seat) 35%, #fff) 0 12%, var(--seat) 50%, color-mix(in srgb, var(--seat) 70%, #000));
+  box-shadow: 0 3px 4px rgba(0, 0, 0, .3);
+}
+[data-theme="whiteboard"] .deed-band { background: transparent; color: var(--seat); border-bottom: 3px solid var(--seat); }
+[data-theme="whiteboard"] .deed-back { background: repeating-linear-gradient(-45deg, #fff176 0 12px, #ffe94d 12px 24px); color: var(--ink); }
+[data-theme="whiteboard"] .chance { border: none; transform: rotate(-1deg); box-shadow: 0 10px 18px -8px rgba(0, 0, 0, .35); }
+[data-theme="whiteboard"] .chip.selected,
+[data-theme="whiteboard"] .tab.selected { background: linear-gradient(transparent 12%, var(--highlight) 12% 88%, transparent 88%); }
+[data-theme="whiteboard"] .btn.primary { box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .15); }
