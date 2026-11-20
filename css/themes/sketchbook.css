@@ -1,0 +1,67 @@
+/*
+ * Sketchbook theme (from Auction XI): a coach's notebook on a wooden desk.
+ * Ruled paper, handwriting, seats as index cards held with tape, the question
+ * on a yellow sticky note.
+ */
+[data-theme="sketchbook"] {
+  --bg: #c4a77c;
+  --surface: #fdfbf3;
+  --surface-2: #f1ecdb;
+  --ink: #2e3036;
+  --ink-soft: #77756d;
+  --line: #d9d2bd;
+  --accent: #ffe14d;
+  --accent-ink: #2e3036;
+  --highlight: rgba(255, 225, 77, .6);
+  --gold: #c08710;
+  --yes: #2f8f4e;
+  --no: #c0262d;
+  --chance: #ffe97a;
+  --chance-ink: #2e3036;
+  --money: #fff3b0;
+  --stamp-bg: rgba(253, 251, 243, .94);
+
+  --seat-0: #c0262d; --seat-1: #1f3fa8; --seat-2: #2f8f4e; --seat-3: #d9731a;
+  --seat-4: #b23a8a; --seat-5: #2b8bb8; --seat-6: #c9a000; --seat-6-ink: #fff; --seat-7: #7a5230;
+
+  --font-logo: 'Caveat', 'Segoe Print', cursive;
+  --font-display: 'Caveat', 'Segoe Print', cursive;
+  --font-body: 'Kalam', 'Segoe Print', cursive;
+
+  --radius: 4px;
+  --radius-sm: 12px 4px 14px 5px / 5px 14px 4px 12px;
+  --radius-card: 3px;
+  --shadow: 0 1px 1px rgba(0, 0, 0, .08), 0 16px 28px -16px rgba(60, 38, 10, .55);
+  --card-shadow: 0 2px 3px rgba(60, 38, 10, .25);
+}
+
+[data-theme="sketchbook"] body {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255, 240, 210, .35), rgba(255, 240, 210, 0) 60%),
+    repeating-linear-gradient(88deg, rgba(90, 55, 20, .06) 0 2px, rgba(0, 0, 0, 0) 2px 11px, rgba(90, 55, 20, .04) 11px 13px, rgba(0, 0, 0, 0) 13px 31px),
+    linear-gradient(180deg, #c9ad83, #b59366);
+  background-attachment: fixed;
+}
+/* ruled notebook paper */
+[data-theme="sketchbook"] .board {
+  background: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0) 0 29px, rgba(80, 130, 205, .2) 29px 30px), var(--surface);
+  background-position: 0 14px;
+}
+[data-theme="sketchbook"] .logo { font-size: clamp(3rem, 9vw, 5.4rem); transform: rotate(-2deg); }
+[data-theme="sketchbook"] .logo-main { background: linear-gradient(transparent 55%, var(--highlight) 55% 90%, transparent 90%); padding: 0 .2em; }
+[data-theme="sketchbook"] .logo small { font-family: var(--font-body); font-size: .28em; color: var(--seat-0); }
+/* seats: index cards held up with tape */
+[data-theme="sketchbook"] .deed { border: 1px solid #d9d2bd; overflow: visible; }
+[data-theme="sketchbook"] .deed::before {
+  content: ''; position: absolute; top: -10px; left: 50%; z-index: 2; width: 70px; height: 20px; margin-left: -35px;
+  background: rgba(255, 245, 200, .7); transform: rotate(-3deg); box-shadow: 0 1px 2px rgba(0, 0, 0, .12);
+}
+[data-theme="sketchbook"] .deed-band { background: transparent; color: var(--seat); border-bottom: 2px solid var(--seat); }
+[data-theme="sketchbook"] .deed-band b { font-size: 1.5rem; }
+[data-theme="sketchbook"] .deed-name { font-size: 1.55rem; }
+[data-theme="sketchbook"] .deed.is-turn { box-shadow: var(--card-shadow), 0 0 0 3px var(--seat); }
+[data-theme="sketchbook"] .deed-back { background: #ffe97a; color: var(--ink); transform: rotate(-1.5deg); box-shadow: 0 2px 4px rgba(0, 0, 0, .15); }
+[data-theme="sketchbook"] .chance { border: none; transform: rotate(-1deg); box-shadow: 0 8px 14px -8px rgba(60, 38, 10, .55); }
+[data-theme="sketchbook"] .chance-q { font-size: 2rem; }
+[data-theme="sketchbook"] .btn { border-width: 2px; }
+[data-theme="sketchbook"] .stamp { font-family: var(--font-display); }
