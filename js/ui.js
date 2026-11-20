@@ -24,6 +24,11 @@
   // Each theme is one stylesheet in css/themes/, scoped to [data-theme="id"].
   const THEMES = [
     { id: 'board', name: 'Classic Board' },
+    { id: 'midnight', name: 'Midnight' },
+    { id: 'whiteboard', name: 'Whiteboard' },
+    { id: 'chalkboard', name: 'Chalkboard' },
+    { id: 'pitch', name: 'Football pitch' },
+    { id: 'sketchbook', name: 'Sketchbook' },
   ];
 
   const CPU_NAMES = ['VAR Bot', 'Robo Pundit', 'Gaffer 3000', 'Scout AI', 'Tiki-Taka Bot', 'Data Analyst', 'Kit Man'];
