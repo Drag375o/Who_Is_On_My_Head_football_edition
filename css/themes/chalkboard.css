@@ -1,0 +1,78 @@
+/*
+ * Chalkboard theme (from Auction XI): black slate in a walnut frame, chalk
+ * writing, seats outlined in coloured chalk.
+ */
+[data-theme="chalkboard"] {
+  color-scheme: dark;
+  --option-bg: #262a28;
+  --bg: #171614;
+  --surface: #262a28;
+  --surface-2: #323734;
+  --ink: #efece2;
+  --ink-soft: rgba(239, 236, 226, .65);
+  --line: rgba(239, 236, 226, .26);
+  --accent: #f3d36b;
+  --accent-ink: #1f2220;
+  --highlight: rgba(243, 211, 107, .16);
+  --gold: #f3d36b;
+  --yes: #6cc58a;
+  --no: #ef7f73;
+  --chance: #2e3330;
+  --chance-ink: #f3d36b;
+  --money: #323734;
+  --stamp-bg: rgba(31, 34, 32, .92);
+  --input-bg: #1f2220;
+  --card-bg: #2a2e2c;
+  --die: #2a2e2c; --pip: #efece2; --die-edge: #efece2;
+
+  --seat-0: #ff9b90; --seat-1: #93caff; --seat-2: #9fe0a8; --seat-3: #ffc27a;
+  --seat-4: #f3a6e0; --seat-5: #8fe3ee; --seat-6: #f3e27a; --seat-6-ink: #1f2220; --seat-7: #d2b08c;
+  --seat-ink: #1f2220;
+
+  --font-logo: 'Cabin Sketch', 'Segoe Print', cursive;
+  --font-display: 'Cabin Sketch', 'Segoe Print', cursive;
+  --font-body: 'Patrick Hand', 'Segoe Print', cursive;
+
+  --radius: 6px;
+  --radius-sm: 8px 5px 9px 4px / 5px 9px 4px 8px;
+  --radius-card: 8px 5px 9px 4px / 5px 9px 4px 8px;
+  --shadow: 0 18px 34px -14px rgba(0, 0, 0, .75), 0 3px 6px rgba(0, 0, 0, .35);
+  --card-shadow: none;
+  --walnut: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0035 0.11' numOctaves='4' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.6 0 0 0 -.08  .38 0 0 0 -.06  .24 0 0 0 -.04  0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+[data-theme="chalkboard"] body {
+  font-size: 18px;
+  background: radial-gradient(ellipse at 50% -10%, #2d2a25 0%, rgba(45, 42, 37, 0) 60%), linear-gradient(180deg, #1b1a17, #121110);
+  background-attachment: fixed;
+}
+/* slate with chalk-dust smudges, in a walnut frame */
+[data-theme="chalkboard"] .board {
+  border: 11px solid transparent;
+  background:
+    radial-gradient(ellipse at 18% 25%, rgba(255, 255, 255, .055), rgba(255, 255, 255, 0) 45%) padding-box,
+    linear-gradient(170deg, #2a2e2c, #222624) padding-box,
+    linear-gradient(180deg, rgba(255, 230, 200, .07), rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, .3)) border-box,
+    var(--walnut) border-box,
+    #2a1a10 border-box;
+  box-shadow: 0 0 0 1px #0b0705, var(--shadow), inset 0 2px 8px rgba(0, 0, 0, .55), inset 0 0 28px rgba(0, 0, 0, .45);
+}
+[data-theme="chalkboard"] .logo,
+[data-theme="chalkboard"] .result-title,
+[data-theme="chalkboard"] .deed-name,
+[data-theme="chalkboard"] .big-name { text-shadow: 0 0 2px rgba(255, 255, 255, .35); }
+[data-theme="chalkboard"] .logo small { color: var(--accent); }
+/* seats: chalk outlines in the player's colour */
+[data-theme="chalkboard"] .deed { border: 2.5px solid var(--seat); }
+[data-theme="chalkboard"] .deed-band { background: transparent; color: var(--seat); border-bottom: 2px dashed var(--seat); }
+[data-theme="chalkboard"] .deed.is-turn { box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--seat); }
+[data-theme="chalkboard"] .deed-back { background: transparent; border: 2.5px dashed var(--accent); color: var(--accent); }
+[data-theme="chalkboard"] .chance { border: 2.5px solid var(--accent); }
+[data-theme="chalkboard"] .chance .records,
+[data-theme="chalkboard"] .vote-tally span { background: rgba(255, 255, 255, .08); color: var(--ink); }
+[data-theme="chalkboard"] .btn { border-color: rgba(239, 236, 226, .85); }
+[data-theme="chalkboard"] .btn.primary { border-color: var(--accent); }
+[data-theme="chalkboard"] .btn.yes, [data-theme="chalkboard"] .btn.no { color: #1f2220; }
+[data-theme="chalkboard"] .btn:hover:not(:disabled) { box-shadow: 3px 4px 0 rgba(239, 236, 226, .5); }
+[data-theme="chalkboard"] .chip.selected,
+[data-theme="chalkboard"] .tab.selected { border-color: var(--accent); color: var(--accent); }
