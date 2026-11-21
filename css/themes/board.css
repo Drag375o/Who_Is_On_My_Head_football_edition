@@ -101,7 +101,8 @@
 [data-theme="board"] .deed-band small::before { content: 'Title deed · '; }
 [data-theme="board"] .deed-band b { text-transform: uppercase; letter-spacing: .03em; }
 [data-theme="board"] .deed-body { background: #fffdf4; }
-[data-theme="board"] .deed-name { font-size: 1.15rem; letter-spacing: .02em; }
+[data-theme="board"] .deed-name { font-size: 1.35rem; letter-spacing: .02em; }
+[data-theme="board"] .deed > .deed-band small::before { content: none; }
 [data-theme="board"] .deed-facts dt { text-transform: uppercase; font-size: .72rem; letter-spacing: .06em; align-self: center; }
 
 /* the back of your own card: a chance card */

@@ -489,27 +489,51 @@
     </dl>`;
   }
 
+  // the face of a seat's card: name, then the facts as quick-scan chips
+  function cardFace(c) {
+    const clubs = c.clubs.map(k => WOH.CLUBS[k][0]);
+    const honours = c.honours.split('').map(h => HONOUR_NAMES[h]);
+    const chips = [Cards.nationName(c.nation).replace(/^the /, ''), `${Cards.GROUP_NAMES[c.group]} · ${c.pos}`,
+      `Born ${c.born}`, c.active ? 'Still playing' : 'Retired'];
+    return `<div class="deed-name">${esc(c.name)}</div>
+      <ul class="face-chips">${chips.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+      ${clubs.length ? `<p class="face-clubs"><small>Clubs</small>${esc(clubs.slice(0, 4).join(', '))}${clubs.length > 4 ? ` <i>+${clubs.length - 4}</i>` : ''}</p>` : ''}
+      ${honours.length ? `<ul class="face-honours">${honours.map(h => `<li>${esc(h)}</li>`).join('')}</ul>` : ''}`;
+  }
+
+  // every answer a seat has had, as a row of coloured pips (hover for the question)
+  function clueTrail(p) {
+    if (!p.clues.length) return '<span class="trail-empty">No clues yet</span>';
+    const yes = p.clues.filter(c => c.a === 'yes').length, no = p.clues.filter(c => c.a === 'no').length;
+    return `<ol class="trail" aria-label="${yes} yes, ${no} no">${p.clues.map(c =>
+      `<li class="pip ${c.a}" title="${c.n}. ${esc(clueText(c))}: ${c.a.toUpperCase()}"></li>`).join('')}</ol>`;
+  }
+
   function seat(g, i) {
-    const p = g.players[i], c = Cards.byId[p.card];
+    const p = g.players[i], c = Cards.byId[p.card], mine = i === me();
     const turn = g.phase === 'turn' && g.turn === i;
-    const cls = ['deed', seatClass(i), turn ? 'is-turn' : '', p.away || p.gone ? 'is-away' : ''].filter(Boolean).join(' ');
+    const cls = ['deed', seatClass(i), turn ? 'is-turn' : '', mine ? 'is-me' : '', p.away || p.gone ? 'is-away' : ''].filter(Boolean).join(' ');
     const body = c && cardVisible(g, i)
-      ? `<div class="deed-name">${esc(c.name)}</div>${facts(c)}`
-      : `<div class="deed-back"><b>?</b><span>${i === me() ? "That's you" : 'Hidden'}</span></div>`;
+      ? cardFace(c)
+      : `<div class="deed-back"><b>?</b><span>${mine ? 'Your card' : 'Hidden'}</span>${mine && g.phase === 'turn' ? '<em>Ask questions to work it out</em>' : ''}</div>`;
     const status = p.gone ? 'Left'
-      : p.solved ? `<b>Got it</b>`
+      : p.solved ? '<b>Got it</b>'
       : p.out ? 'Gave up'
       : p.away ? 'Away'
-      : turn ? (g.ask ? '<b>Asking</b>' : '<b>On turn</b>')
-      : `${p.clues.length} clue${p.clues.length === 1 ? '' : 's'}`;
-    const label = `${p.isCPU ? 'Computer' : `Player ${i + 1}`}${i === me() ? ' · you' : ''}`;
+      : turn ? `<b>${g.ask ? 'Asking' : 'Thinking'}</b><span class="dots"><i>.</i><i>.</i><i>.</i></span>`
+      : '';
+    const label = mine ? 'You' : p.isCPU ? 'Computer' : `Player ${i + 1}`;
     const removable = isHost() && i !== 0 && p.away && !p.gone && g.phase !== 'gameEnd';
     return `<article class="${cls}">
-      <header class="deed-band"><small>${label}</small><b>${esc(p.name)}</b></header>
-      <div class="deed-body">${body}</div>
-      <footer class="deed-foot"><span class="money" title="Points">${pts(p.score)}</span><span class="status">${status}</span></footer>
-      ${removable ? `<div style="padding:0 10px 10px"><button class="btn small ghost" data-action="remove" data-i="${i}">Remove from game</button></div>` : ''}
-      ${p.solved ? '<span class="tag-solved">Got it!</span>' : p.out ? '<span class="tag-out">Out</span>' : ''}
+      <header class="deed-band">
+        <span class="seat-avatar" aria-hidden="true">${esc(Array.from(p.name.trim())[0] || '?').toUpperCase()}</span>
+        <span class="seat-who"><small>${label}</small><b>${esc(p.name)}</b></span>
+        <span class="money" title="Points">${pts(p.score)}</span>
+      </header>
+      <div class="deed-body">${body}${p.solved ? '<span class="tag-solved">Got it!</span>' : p.out ? '<span class="tag-out">Out</span>' : ''}</div>
+      <footer class="deed-foot">${clueTrail(p)}${status ? `<span class="status">${status}</span>` : ''}</footer>
+      ${removable ? `<div class="seat-remove"><button class="btn small ghost" data-action="remove" data-i="${i}">Remove from game</button></div>` : ''}
+      ${turn ? `<span class="turn-flag">${mine ? 'Your turn' : 'On turn'}</span>` : ''}
     </article>`;
   }
 

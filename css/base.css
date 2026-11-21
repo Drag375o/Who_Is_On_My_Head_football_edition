@@ -260,23 +260,27 @@ button:disabled { cursor: not-allowed; }
 
 .table-grid { display: grid; gap: 18px; grid-template-columns: minmax(0, 1fr) minmax(320px, 420px); align-items: start; }
 .side { display: grid; gap: 16px; }
+/* one column: the question first, then the players, then clues and the log */
 @media (max-width: 960px) {
   .table-grid { grid-template-columns: 1fr; }
-  .side { order: -1; }
+  .table-grid > .side { display: contents; }
+  .table-grid > .seats-grid { order: 1; }
+  .table-grid > .side > .notebook { order: 2; }
+  .table-grid > .side > .log { order: 3; }
 }
 
-.seats-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); align-content: start; }
-@media (max-width: 520px) { .seats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
+.seats-grid { display: grid; gap: 22px 18px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); padding-top: 10px; }
+@media (max-width: 520px) { .seats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 10px; } }
 
-/* a player's seat: a title-deed card (band with the player's name, the footballer below) */
+/* a player's seat: who they are on top, the card on their forehead below, their answers along the foot */
 .deed {
   position: relative; display: flex; flex-direction: column; min-width: 0;
   background: var(--card-bg, var(--surface)); color: var(--card-ink, var(--ink));
   border: var(--card-border, 2px) solid var(--ink); border-radius: var(--radius-card, var(--radius-sm));
   box-shadow: var(--card-shadow);
-  transition: transform .2s, box-shadow .2s;
+  transition: transform .2s, box-shadow .2s, opacity .2s;
 }
-.deed.is-turn { transform: translateY(-4px); box-shadow: var(--card-shadow), 0 0 0 4px var(--seat); }
+.deed.is-turn { transform: translateY(-6px); box-shadow: var(--card-shadow), 0 0 0 4px var(--seat); }
 .deed.is-away { opacity: .55; }
 .deed-band {
   display: grid; gap: 1px; padding: 7px 10px 8px; text-align: center;
@@ -286,22 +290,68 @@ button:disabled { cursor: not-allowed; }
 }
 .deed-band small { font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; opacity: .9; }
 .deed-band b { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 1.12rem; line-height: 1.1; overflow-wrap: anywhere; }
-.deed-body { flex: 1; display: grid; align-content: start; gap: 6px; padding: 10px 12px; text-align: center; }
-.deed-name { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 1.2rem; line-height: 1.1; text-transform: var(--deed-case, none); overflow-wrap: anywhere; }
+.deed > .deed-band { display: flex; align-items: center; gap: 10px; padding: 10px 12px; text-align: left; }
+.seat-avatar {
+  flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%;
+  border: 2px solid currentColor; background: color-mix(in srgb, currentColor 16%, transparent);
+  font-family: var(--font-display); font-weight: var(--display-weight); font-size: 1.15rem; line-height: 1;
+}
+.seat-who { flex: 1; min-width: 0; display: grid; }
+.seat-who small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.deed > .deed-band b { font-size: 1.25rem; }
+.deed > .deed-band .money { flex: none; }
+
+.deed-body { position: relative; flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 14px 14px 12px; }
+.deed-name { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 1.5rem; line-height: 1.08; text-align: center; text-transform: var(--deed-case, none); overflow-wrap: anywhere; }
+.face-chips, .face-honours { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin: 0; padding: 0; list-style: none; }
+.face-chips li {
+  padding: 2px 9px; border: 1.5px solid var(--line); border-radius: 999px;
+  background: var(--surface-2); font-size: .86rem; font-weight: 600; line-height: 1.35;
+}
+.face-clubs { margin: 0; font-size: .9rem; line-height: 1.35; text-align: center; color: var(--ink-soft); }
+.face-clubs small { display: block; font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; }
+.face-clubs i { font-style: normal; font-weight: 700; }
+.face-honours { margin-top: auto; }
+.face-honours li {
+  padding: 2px 9px; border-radius: 4px; background: var(--gold); color: #fff;
+  font-size: .78rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+}
 .deed-facts { display: grid; gap: 2px; margin: 0; font-size: .84rem; text-align: left; }
 .deed-facts div { display: flex; justify-content: space-between; gap: 6px; border-bottom: 1px dotted var(--line); }
 .deed-facts dt { color: var(--ink-soft); }
 .deed-facts dd { margin: 0; font-weight: 600; text-align: right; overflow-wrap: anywhere; }
+
 .deed-back {
-  display: grid; place-items: center; align-content: center; gap: 4px; min-height: 140px;
+  flex: 1; display: grid; place-items: center; align-content: center; gap: 6px; min-height: 190px; padding: 14px; text-align: center;
   border-radius: var(--radius-sm); background: var(--chance); color: var(--chance-ink);
 }
-.deed-back b { font-family: var(--font-logo); font-size: 3.6rem; line-height: 1; }
-.deed-back span { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; }
-.deed-foot { display: flex; justify-content: space-between; align-items: center; gap: 6px; padding: 6px 10px 8px; font-size: .85rem; color: var(--ink-soft); }
-.deed-foot .status b { color: var(--ink); }
+.deed-back b { font-family: var(--font-logo); font-size: 5rem; line-height: 1; }
+.deed-back span { font-size: .9rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; }
+.deed-back em { font-style: normal; font-size: .85rem; opacity: .8; }
+
+.deed-foot {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px 10px;
+  padding: 9px 12px 11px; border-top: 1px dashed var(--line); font-size: .9rem; color: var(--ink-soft);
+}
+.deed-foot .status b { color: var(--seat); }
+.trail { display: flex; flex-wrap: wrap; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.pip { width: 13px; height: 13px; border-radius: 50%; background: var(--line); }
+.pip.yes { background: var(--yes); }
+.pip.no { background: var(--no); }
+.pip.correct { background: var(--gold); box-shadow: 0 0 0 2px var(--card-bg, var(--surface)), 0 0 0 3.5px var(--gold); }
+.pip.wrong, .pip.time { background: transparent; border: 2.5px solid var(--no); }
+.trail-empty { font-size: .85rem; }
+
+.turn-flag {
+  position: absolute; top: -13px; right: 12px; z-index: 3; padding: 2px 10px;
+  border: 2px solid var(--ink); border-radius: 999px; background: var(--seat); color: var(--seat-ink);
+  font-family: var(--font-display); font-weight: var(--display-weight); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
+  animation: bob 1.4s ease-in-out infinite alternate;
+}
+@keyframes bob { to { transform: translateY(-3px); } }
+.seat-remove { padding: 0 12px 12px; }
 .deed .tag-solved, .deed .tag-out {
-  position: absolute; right: -6px; top: 34px; padding: 2px 10px;
+  position: absolute; right: -8px; top: -15px; z-index: 2; padding: 1px 10px;
   border: 2.5px solid var(--ink); border-radius: 6px; transform: rotate(8deg);
   font-family: var(--font-display); font-weight: var(--display-weight); font-size: .9rem; text-transform: uppercase;
 }
@@ -459,10 +509,23 @@ button:disabled { cursor: not-allowed; }
 .confetti i { position: absolute; top: -20px; width: 10px; height: 16px; animation: fall linear forwards; }
 @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
 
-/* narrow phones: two cards per row, so facts stack label-over-value */
+/* narrow phones: two cards per row */
 @media (max-width: 520px) {
-  .seats-grid .deed-facts div { display: block; }
-  .seats-grid .deed-facts dd { text-align: left; }
-  .seats-grid .deed-name { font-size: 1.05rem; }
-  .deed-band b { font-size: 1rem; }
+  .deed > .deed-band { gap: 6px; padding: 8px 9px; }
+  .seat-avatar { display: none; }
+  .deed > .deed-band b { font-size: 1.02rem; }
+  .deed-body { padding: 10px 9px; gap: 8px; }
+  .deed-name { font-size: 1.15rem; }
+  .face-chips li { padding: 1px 7px; font-size: .76rem; }
+  .face-clubs { font-size: .8rem; }
+  .face-honours li { padding: 1px 6px; font-size: .66rem; }
+  .deed-back { min-height: 150px; }
+  .deed-back b { font-size: 3.8rem; }
+  .deed-back span { font-size: .78rem; }
+  .deed-back em { font-size: .76rem; }
+  .deed-foot { padding: 7px 9px 9px; font-size: .8rem; }
+  .pip { width: 11px; height: 11px; }
+}
+@media (max-width: 520px) {
+  [data-theme] .deed-name { font-size: 1.15rem; }
 }
