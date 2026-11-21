@@ -334,10 +334,14 @@
       ${joinBox()}`;
   }
 
+  // a link that opens this page with the room code filled in
+  const inviteLink = code => `${location.href.split(/[?#]/)[0]}?room=${code}`;
+
   function joinBox() {
-    return `<div class="join-box">
-      <div class="join-text"><b>Joining a friend's room?</b>
-        <small class="muted">Type their ${Net.CODE_LENGTH}-letter code. They choose the deck and rules.</small></div>
+    const invited = view.invited && view.joinCode === view.invited;
+    return `<div class="join-box${invited ? ' invited' : ''}">
+      <div class="join-text"><b>${invited ? `You're invited to room ${esc(view.invited)}` : "Joining a friend's room?"}</b>
+        <small class="muted">${invited ? 'Type your name above, then press Join room.' : `Type their ${Net.CODE_LENGTH}-letter code. They choose the deck and rules.`}</small></div>
       <div class="join-row">
         <input class="code-input" data-code data-keep="code" maxlength="${Net.CODE_LENGTH}" placeholder="ABCDE" value="${esc(view.joinCode)}"
           autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Room code">
@@ -1132,7 +1136,9 @@
       const ready = info.seats.length >= 2;
       body = `<p class="muted" style="margin:0">${host ? 'Share this code with your friends' : "You're in room"}</p>
         <div class="room-code" aria-label="Room code ${esc(info.code)}">${String(info.code).split('').map(c => `<span>${c}</span>`).join('')}</div>
-        ${host ? '<button class="btn small" data-action="copy-code">Copy code</button>' : ''}
+        <div class="choice-row" style="justify-content:center">
+          ${host ? '<button class="btn small" data-action="copy-code">Copy code</button>' : ''}
+          <button class="btn small" data-action="copy-link">Copy invite link</button></div>
         <ul class="seats">${seats}</ul>
         <p class="muted" style="margin:0">${esc(info.summary)}</p>
         ${host
@@ -1240,6 +1246,9 @@
       case 'copy-code':
         if (navigator.clipboard) navigator.clipboard.writeText(view.online.code).then(() => { el.textContent = 'Copied!'; }, () => {});
         break;
+      case 'copy-link':
+        if (navigator.clipboard) navigator.clipboard.writeText(inviteLink(view.online.code)).then(() => { el.textContent = 'Link copied!'; }, () => {});
+        break;
       case 'dismiss': view.notice = null; render(); break;
       case 'quit': quit(); break;
       case 'new': view.game = null; go('setup'); break;
@@ -1341,5 +1350,12 @@
 
   view.resume = readSaved(HOSTED);
   view.rejoin = readSaved(JOINED);
+  // opened from an invite link (?room=ABCDE): go straight to joining that room
+  const invite = Net.normaliseCode(new URLSearchParams(location.search).get('room'));
+  if (invite.length === Net.CODE_LENGTH) {
+    settings.play = 'online';
+    view.joinCode = view.invited = invite;
+    history.replaceState(null, '', location.href.split(/[?#]/)[0]);
+  }
   render();
 })(window.WOH);

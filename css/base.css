@@ -198,6 +198,7 @@ button:disabled { cursor: not-allowed; }
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px;
   margin-top: 14px; padding: 14px 16px; border: 2px dashed var(--line); border-radius: var(--radius-sm);
 }
+.join-box.invited { border: 2.5px solid var(--accent); background: var(--highlight); }
 .resume-card { margin-top: 0; border: 2.5px solid var(--accent); background: var(--highlight); }
 .join-text { display: grid; gap: 2px; max-width: 520px; }
 .join-text b { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 1.12rem; }

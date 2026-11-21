@@ -2,6 +2,8 @@
 
 > **Unofficial fan-made game.** Free to play, not sponsored, and not affiliated with FIFA, UEFA, Hasbro, or any club, league or player. See the [Disclaimer](#disclaimer).
 
+**▶ Play now: [drag375o.github.io/Who_Is_On_My_Head_football_edition](https://drag375o.github.io/Who_Is_On_My_Head_football_edition/)**
+
 A browser party game. Everyone gets a footballer on their head: you can see everyone's card except your own. Ask YES / NO questions, keep going while the answers are YES, and name your footballer before anyone else.
 
 Built from the same template as [Auction XI](https://auction-xi.netlify.app): plain HTML, CSS and JavaScript, no build step. Open `index.html` and play.
@@ -73,9 +75,10 @@ Built from the same template as [Auction XI](https://auction-xi.netlify.app): pl
 
 ## Playing online
 
-1. Choose **Online**, set the mode and deck, press **Create a room** and share the 5-letter code.
-2. Friends open the same web address, choose **Online**, type the code and press **Join room**.
-3. When everyone is in, press **Start the game**.
+1. Open the [game](https://drag375o.github.io/Who_Is_On_My_Head_football_edition/), choose **Online**, set the mode and deck and press **Create a room**.
+2. Share the 5-letter code, or press **Copy invite link** and send that.
+3. Friends open the link (the code is filled in for them), or open the game, choose **Online** and type the code. They type their name and press **Join room**.
+4. When everyone is in, press **Start the game**.
 
 - Each player's own card is hidden on their device and never sent to it until it's revealed.
 - **Dropped connection:** the player's turns are skipped while they're away. Their device reconnects automatically for about 2 minutes; after closing the page, **Rejoin** puts them back in their seat. The room creator can **Remove** a player who isn't coming back.
@@ -86,7 +89,7 @@ Built from the same template as [Auction XI](https://auction-xi.netlify.app): pl
 
 - **Locally:** open `index.html` in Chrome, Edge, Firefox or Safari.
 - **Offline:** vs Computer and pass & play work offline (fonts fall back to system fonts). Online rooms need internet.
-- **GitHub Pages:** Settings → Pages → Deploy from a branch → `main`, `/ (root)`.
+- **GitHub Pages:** Settings → Pages → Deploy from a branch → `main`, `/ (root)`. The site appears at `https://<user>.github.io/<repo>/` a minute later and updates on every push.
 - **Netlify:** drag this folder onto *Sites → Add new site → Deploy manually*, or run `npx netlify-cli deploy --prod --dir .` once the folder is linked.
 
 Online players must all use the same web address to find each other's rooms.
