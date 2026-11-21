@@ -6,6 +6,8 @@ A browser party game. Everyone gets a footballer on their head: you can see ever
 
 Built from the same template as [Auction XI](https://auction-xi.netlify.app): plain HTML, CSS and JavaScript, no build step. Open `index.html` and play.
 
+![A game against the computer: everyone's footballer is face up except your own, and a computer player's question waits for your YES or NO](docs/screenshots/table.png)
+
 ## Features
 
 - **Three ways to play:**
@@ -18,8 +20,35 @@ Built from the same template as [Auction XI](https://auction-xi.netlify.app): pl
 - **A question deck** of ready-made questions answered from the records (position, nationality, age, clubs, countries played in, Ballon d'Or, World Cup, Champions League…), plus your own typed or spoken questions.
 - **Classic and Points modes**, an optional turn timer (30 / 60 / 90 s), and dice to decide who goes first.
 - **Sound effects** for every moment (dice, cards, YES chime, NO buzzer, correct-guess fanfare, whistle, crowd), with a mute button.
+- **Player cards** show each footballer's nation, position, age, clubs and trophies at a glance, with a trail of coloured dots for every YES and NO that player has had.
 - **Six board styles:** Classic Board (default, Monopoly-inspired), Midnight, Whiteboard, Chalkboard, Football pitch and Sketchbook.
 - **Works on phones, tablets and computers.** Nothing to install.
+
+## Screenshots
+
+**Your turn.** Pick a ready-made question from the deck (or search it), or type a guess. Your own card stays hidden.
+
+![Your turn: the question deck open on the Clubs category, next to the other players' cards](docs/screenshots/your-turn.png)
+
+**End of a round.** Everyone's card is revealed, with their trail of answers and who got it.
+
+![End of round 1: the standings, then every player's card face up with GOT IT! and OUT stickers](docs/screenshots/round-end.png)
+
+**On a phone** (Midnight style) the question comes first, then the players. **Pass & play** (Chalkboard style) shows the card big, for holding up to your forehead.
+
+<p>
+  <img src="docs/screenshots/phone.png" width="300" alt="Phone view in the Midnight style: a computer player's question with YES and NO buttons above the player cards">
+  &nbsp;
+  <img src="docs/screenshots/pass-and-play.png" width="520" alt="Pass and play in the Chalkboard style: the footballer's name in big letters with YES, NO and guess buttons for the others">
+</p>
+
+**The six board styles:**
+
+![The same game in all six board styles: Classic Board, Midnight, Whiteboard, Chalkboard, Football pitch and Sketchbook](docs/screenshots/board-styles.png)
+
+**Setting up a game:**
+
+![The setup screen: how you're playing, computer players, game mode, deck and timer](docs/screenshots/setup.png)
 
 ## How to play
 
@@ -79,6 +108,7 @@ js/sound.js                 sound effects (Web Audio, no files)
 js/net.js                   online rooms (PeerJS)
 js/ui.js                    screens, clicks, online lobby, syncing, saving and rejoining
 tests/                      data checks, engine simulation, browser playthroughs
+docs/screenshots/           the pictures in this README (tests/readme_shots.py retakes them)
 last_Update.md              what the game does now and its version history
 ```
 
@@ -90,6 +120,7 @@ node tests/check-questions.js   # every question answers every card; guess check
 node tests/simulate.js          # 240 computer-only games through the engine
 python tests/ui_play.py         # Chrome: vs Computer, pass & play, phone width
 python tests/ui_play.py online  # Chrome: 3-device online game via PeerJS (needs internet)
+python tests/readme_shots.py     # Chrome: retake the README pictures in docs/screenshots/
 ```
 
 The browser tests need Python with Playwright and Google Chrome.
